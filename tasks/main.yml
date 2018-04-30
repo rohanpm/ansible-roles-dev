@@ -3,3 +3,10 @@
   template:
     src: gitconfig.j2
     dest: "{{ lookup('env', 'HOME') }}/.gitconfig"
+
+- name: Deploy additional packages for development
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - tox

@@ -1,0 +1,5 @@
+---
+- name: Deploy gitconfig
+  template:
+    src: gitconfig.j2
+    dest: "{{ lookup('env', 'HOME') }}/.gitconfig"

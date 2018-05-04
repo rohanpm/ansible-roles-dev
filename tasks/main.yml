@@ -10,4 +10,5 @@
     state: present
   with_items:
   - tox
+  - /usr/bin/virtualenv
   become: yes

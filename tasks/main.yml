@@ -12,3 +12,19 @@
   - tox
   - /usr/bin/virtualenv
   become: yes
+
+- name: Make directories for symlinks
+  file:
+    name: "{{ item.src }}"
+    state: directory
+  become: yes
+  with_items: "{{ root_links }}"
+
+- name: Make symlinks
+  file:
+    src: "{{ item.src }}"
+    name: "{{ item.name }}"
+    state: link
+    force: yes
+  become: yes
+  with_items: "{{ root_links }}"

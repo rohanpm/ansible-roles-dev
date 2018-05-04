@@ -11,6 +11,7 @@
   with_items:
   - tox
   - /usr/bin/virtualenv
+  - strace
   become: yes
 
 - name: Make directories for symlinks

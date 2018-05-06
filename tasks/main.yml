@@ -1,8 +1,14 @@
 ---
 - name: Deploy gitconfig
-  template:
-    src: gitconfig.j2
-    dest: "{{ lookup('env', 'HOME') }}/.gitconfig"
+  git_config:
+    scope: global
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  with_items:
+  - name: user.name
+    value: "{{ git_name }}"
+  - name: user.email
+    value: "{{ git_email }}"
 
 - name: Deploy additional packages for development
   package:

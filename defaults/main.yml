@@ -2,3 +2,6 @@
 root_links:
 - name: /var/lib/docker
   src: /home/var-lib-docker
+
+git_name: Rohan McGovern
+git_email: rohan@mcgovern.id.au

@@ -18,6 +18,7 @@
   - tox
   - /usr/bin/virtualenv
   - strace
+  - docker
   # deps for later ansible modules
   - policycoreutils-python
   become: yes

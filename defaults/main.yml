@@ -3,5 +3,27 @@ root_links:
 - name: /var/lib/docker
   src: /home/var-lib-docker
 
+# These selinux contexts are needed to match up with the root_links above,
+# as otherwise the files through the symlinks don't get the labels they're
+# supposed to.
+# FIXME: derive this from the existing paths rather than hardcoding this list
+selinux_contexts:
+- target: /home/var-lib-docker(/.*)?
+  setype: container_var_lib_t
+- target: /home/var-lib-docker/.*/config\.env
+  setype: container_share_t
+- target: /home/var-lib-docker/init(/.*)?
+  setype: container_share_t
+- target: /home/var-lib-docker/overlay(/.*)?
+  setype: container_share_t
+- target: /home/var-lib-docker/overlay2(/.*)?
+  setype: container_share_t
+- target: /home/var-lib-docker/containers/.*/hosts
+  setype: container_share_t
+- target: /home/var-lib-docker/containers/.*/.*\.log
+  setype: container_log_t
+- target: /home/var-lib-docker/containers/.*/hostname
+  setype: container_share_t
+
 git_name: Rohan McGovern
 git_email: rohan@mcgovern.id.au

@@ -18,6 +18,8 @@
   - tox
   - /usr/bin/virtualenv
   - strace
+  # deps for later ansible modules
+  - policycoreutils-python
   become: yes
 
 - name: Make directories for symlinks
@@ -35,3 +37,14 @@
     force: yes
   become: yes
   with_items: "{{ root_links }}"
+
+# /var/lib/docker was symlinked to /home/var-lib-docker above.
+# For selinux to work correctly, we have to ensure /var/lib/docker rules
+# are also applied to /home/var-lib-docker.
+
+- name: Fix selinux context for symlinked dir
+  sefcontext:
+    target: "{{ item.target }}"
+    setype: "{{ item.setype }}"
+  become: yes
+  with_items: "{{ selinux_contexts }}"
